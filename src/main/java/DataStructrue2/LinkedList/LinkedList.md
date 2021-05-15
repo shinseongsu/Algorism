@@ -84,6 +84,34 @@ public class SingleLinkedList<T> {
             }
         }
     }
+    
+    public Node<T> search(T data) {
+        if(this.head == null) {
+            return null;
+        } else {
+            Node<T> node = this.head;
+            while(node != null) {
+                if(node.data == data) {
+                    return node;
+                } else {
+                    node = node.next;
+                }
+            }
+            return null;
+        }
+    }
+    
+    public void addNodeInside(T data, T isData) {
+        Node<T> searchedNode = this.search(isData);
+        
+        if(searchedNode == null) {
+            this.addNode(data);
+        } else {
+            Node<T> nextNode = searchedNode.next;
+            searchedNode.next = new Node<T>(data);
+            searchedNode.next.next = nextNode;
+        }
+    }
 }
 ```
 
@@ -95,4 +123,54 @@ MyLinkedList.addNode(3);
 
 MyLinkedList.printAll();
 ```
+
+### 링크드 리스트의 복잡한 기능1 (링크드 리스트 데이터 사이에 데이터를 추가)
+
+- 링크드 리스트는 유지 관리에 부가적인 구현이 필요함.
+
+
+### 다양한 링크드 리스트 구조: 더블 링크드 리스트(Doubly linked list)
+
+- 더블 링크드 리스트(Doubly linked list) 기본구조
+  - 이중 연결 리스트
+  - 장점: 양방향으로 연결되어 있어서 노드 탐색이 양쪽으로 모두 가능
+
+```java
+public class DoubleLinkedList<T> {
+  public Node<T> head = null;
+  public Node<T> tail = null;
+
+  public Node(T data) {
+    this.data = data;
+  }
+
+  public void addNode(T data) {
+    if (this.head == null) {
+      this.head = new Node()<T> data;
+      this.tail = this.head;
+    } else {
+        Node<T> node = this.head;
+        while(node.next != null) {
+            node = node.next;
+        }
+        node.next = new Node<T>(data);
+        node.next.prev = node;
+        this.tail = node.next;
+    }
+  }
+
+  public void printAll() {
+    if(this.head != null) {
+      Node<T> node = this.head;
+      System.out.println(node.data);
+      while(node.next != null) {
+          node = node.next;
+          System.out.println(node.data);
+      }
+    }
+  }
+}
+
+```
+
 
